@@ -13,13 +13,11 @@ class DAL:
         self.db_name = os.getenv("DB_NAME","IranMalDB")
         self.db_coll = os.getenv("DB_COLL","tweets")
         self.db_port = os.getenv("BD_PORT","27017")
-        a = 'mongodb+srv://IRGC:iraniraniran@iranmaldb.gurutam.mongodb.net/'
 
 
     def connect(self):
         try:
             self.client = MongoClient(f"mongodb+srv://{self.user}:{self._pass}@{self.host}")
-            self.client.admin.command("ping")
             print(f"Connected to {self.host}!")
         except errors.ServerSelectionTimeoutError as err:
             print(f"Server selection timeout: {err}")
@@ -44,7 +42,7 @@ class DAL:
             db = self.client[self.db_name]
             collection = db[self.db_coll]
             result = list(collection.find({}))
-            return {"result": result}
+            return result
         except Exception as e:
             print(e)
             raise Exception(e)
