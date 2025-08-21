@@ -12,9 +12,7 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 
-RUN pip install -U nltk
-RUN python -m nltk.downloader -q all
-RUN pip install -U numpy
+
 
 EXPOSE 8000
 
