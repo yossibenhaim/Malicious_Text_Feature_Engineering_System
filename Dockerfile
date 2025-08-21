@@ -1,0 +1,21 @@
+FROM python:3.12-slim AS builder
+
+
+WORKDIR /app
+
+
+COPY /app /app
+COPY requirements.txt /app
+
+
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+
+RUN pip install -U nltk
+RUN python -m nltk.downloader -q all
+RUN pip install -U numpy
+
+EXPOSE 8000
+
+CMD ["python", "main.py"]
