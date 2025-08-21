@@ -2,12 +2,24 @@ import pandas as pd
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from collections import Counter
+import os
+nltk.download('vader_lexicon', quiet=True)
+
+
+class SentimentProcessor:
+    def _init_(self):
+        nltk_dir = "/tmp/nltk_data"
+        os.makedirs(nltk_dir, exist_ok=True)
+        nltk.data.path.append(nltk_dir)
+        nltk.download('vader_lexicon', download_dir=nltk_dir, quiet=True)
+        self.analyzer = SentimentIntensityAnalyzer()
 
 class Processor:
 
     def __init__(self):
         self.dataframe = None
         self.weapons = None
+        self.a = SentimentProcessor()
 
     def create_dataframe(self, data):
         self.dataframe = pd.DataFrame(data)
